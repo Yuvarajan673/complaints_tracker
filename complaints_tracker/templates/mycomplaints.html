@@ -1,0 +1,44 @@
+{% extends 'layout/main.html' %} {% block title %} My Complaints
+{%endblock title %} {% block content %}
+
+<div class="my-complaints-div">
+    <h2>My Complaints</h2>
+    <hr>
+    <div class="cards-grid">
+       {% for complaint in mycomplaint %}
+        <a href="/complaintdetails/{{complaint.id}}">
+          <div class="card">
+            <div class="card-image">
+              <img src="{{ complaint.image.url }}" alt="" />
+            </div>
+            <div class="card-details">
+              <label id="supportbtn-bg">
+              <input type="checkbox" name="supportbtn" id="supportbtn" value="">
+              </label>
+              <div class="detail-div">
+              <h4>Category : {{ complaint.category }}</h4>
+              <p>Title : {{ complaint.title }}</p>
+              {% if complaint.status == 'pending' %}
+              <p id="pending">Status : {{ complaint.status }}</p>
+              {% elif complaint.status == 'in_progress' %}
+              <p id="inprogress">Status : {{ complaint.status }}</p>
+              {% else %}
+              <p id="resolved">Status : {{ complaint.status }}</p>
+              {% endif %}
+              </div>
+              <div class="btn-group">
+              <form action="{% url 'delete' complaint.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" onclick="return confirm('Do you want to delete this complaint')"><i class="fa fa-trash"></i></button>
+              </form>
+              <p>View Details&nbsp;<i class="fa fa-arrow-right"></i></p>
+            </div>
+            </div>
+          </div>
+          </a>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock content %}

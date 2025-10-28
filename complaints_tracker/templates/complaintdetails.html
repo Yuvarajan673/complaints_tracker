@@ -1,0 +1,25 @@
+{% extends 'layout/main.html' %} {% block title %} All Complaints
+{%endblock title %} {% block content %}
+
+<div class="complaint-details-div">
+    <h2>Complaint Details</h2>
+    <hr>
+    {% if complaintdetail %}
+    <div class="complaint-details-group">
+    <div class="img-div">
+        <img src="{{ complaintdetail.image.url }}" alt="">
+    </div>
+    <div class="complaint-details">
+        <h2>Title : {{ complaintdetail.title }}</h2>
+        <h3>Category : {{ complaintdetail.category }}</h3>
+        <p>Description : {{ complaintdetail.description }}</p>
+        <p>Status : {{ complaintdetail.status }}</p>
+        <p>Location : {{ complaintdetail.location }}</p>
+        <p>Uploaded Date : {{ complaintdetail.creation_date }}</p>
+    </div>
+    </div>
+</div>
+{% endif %}
+ 
+
+{% endblock content %}

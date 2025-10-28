@@ -1,0 +1,132 @@
+{% load static %}
+<header>
+
+
+<!--NavBar-->
+<div class="header-div">
+  <h1 class="site-name">
+    <img src="../static/icons/favicon2.ico" alt="">&nbsp;
+    <a href="/">ComplaintsHub</a>
+  </h1>
+
+  <div class="nav-link">
+    <ul>
+      {% if user.is_authenticated %}
+      <li>
+        <a href="/mycomplaints" class="my-complaints-btn">
+          <i class="fa-solid fa-envelope-circle-check"></i>&nbsp;
+          My Complaints
+        </a>
+      </li>
+      <li>
+        <label for="check2" class="make-complaint-btn">
+          <i class="fa-solid fa-envelope"></i> &nbsp;Make Complaint
+        </label>
+        <input type="checkbox" id="check2">
+        <div class="modal2" id="complaint-modal">
+          <div class="complaint-modal-content" id="complaint-modal-content">
+            <a href="" class="close2">&times;</a>
+            <form action="/submit_complaint" method="post" enctype="multipart/form-data" class="complaint-form" id="complaint-form">
+              {% csrf_token %}
+              <h2>Complaint Form</h2>
+              <input type="text" name="complaint-title" id="complaint-title" placeholder="Comaplaint Title" required>
+              <select id="category" name="category" required>
+                <option value="" disabled selected hidden>Select Category</option>
+                <option value="road">Road Damage</option>
+                <option value="Water">Water Problem</option>
+                <option value="light">Street Light Issue</option>
+                <option value="garbage">Garbage Issue</option>
+                <option value="others">Others</option>
+              </select>
+              <textarea cols="30" rows="10" name="complaint-description" id="complaint-description" placeholder="Write About The Problem" required></textarea>
+              <input type="text" name="address" id="address" placeholder="Address..." required>
+              <input type="file" name="complaint-image" id="complaint-image" placeholder="file" accept="image/*" multiple>
+              <button type="submit">Submit Complaint</button>
+            </form>
+          </div>
+        </div>
+      </li>
+      <li>
+        <a href="/logout" id="logoutbtn" onclick="return confirm('Are you sure to Logout')">
+          <i class="fa-solid fa-user"></i>&nbsp;
+          {{ user.username }}
+        </a>
+      </li>
+      {% else %}
+      <li>
+        <label for="check" class="login-btn">Login
+        </label>
+        <input type="checkbox" id="check">
+        <div class="modal" id="modal">
+            <div class="reg-modal-content" id="reg-modal-content">
+              <a href="" class="close">&times;</a>
+              <form action="/register" method="post" class="register-form" id="register-form">
+                {% csrf_token %}
+                <h2>Register</h2>
+                <input type="text" name="username" id="username2" placeholder="Username" required />
+                <input
+                  type="email"
+                  name="email"
+                  id="email2"
+                  placeholder="Email"
+                  required
+                />
+                <div class="icon-group">
+                <input
+                  type="password"
+                  name="password1"
+                  id="password1"
+                  placeholder="Password"
+                  required
+                /> <i class="fa-solid fa-eye-slash" id="pass1-icon"></i>
+              </div>
+                <div class="icon-group">
+                <input
+                  type="password"
+                  name="password2"
+                  id="password2"
+                  placeholder="Confirm Password"
+                  required
+                /><i class="fa-solid fa-eye-slash" id="pass2-icon"></i>
+              </div>
+                <button type="submit">Register</button>
+                <p>Already have an account? <a href="#log-modal-content">Login</a></p>
+              </form>
+            </div>
+        
+            <div class="log-modal-content" id="log-modal-content">
+              <a href="" class="close">&times;</a>
+              <form action="/login" method="post" class="login-form" id="login-form">
+                {% csrf_token %}
+                <h2>Login</h2>
+                <input
+                  type="text"
+                  name="username"
+                  id="username"
+                  placeholder="Username"
+                  required
+                />
+                <div class="icon-group">
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="Password"
+                  required
+                /><i class="fa-solid fa-eye-slash" id="pass-icon"></i>
+              </div>
+                <button type="submit">Login</button>
+                <p>Don't have an account? <a href="#reg-modal-content">Register</a></p>
+              </form>
+            </div>
+          </div>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+
+
+
+
+</header>

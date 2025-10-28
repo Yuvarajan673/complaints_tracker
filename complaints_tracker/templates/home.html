@@ -1,0 +1,73 @@
+{% extends 'layout/main.html' %} {% block title %} Community Complaints Tracker
+{% endblock title %} {% block content %}
+  <div class="hero-section">
+    <p>Raise Your Voice. <br> Improve Your Community.</p>
+    <p>Submit complaints, track resolutions, and make your neighborhood better together.</p>
+    <p>Trusted by 500+ citizens in TamilNadu</p>
+  </div>
+  <br /><br />
+  <div class="main-content">
+    <div class="content-group">
+      <h2 id="recent-h2">Recent Complaint</h2>
+
+      <hr />
+      <div class="btn-icon-group">
+        <a href="/allcomplaints" id="seeallbtn">See All Complaints&nbsp; <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+       <div class="cards-group">
+        {% for complaint in recentcomplaints %}
+        <a href="/complaintdetails/{{complaint.id}}">
+          <div class="card">
+            <div class="card-image">
+              <img src="{{complaint.image.url}}" alt="" />
+            </div>
+            <div class="card-details">
+              <label id="supportbtn-bg">
+              <input type="checkbox" id="supportbtn">
+              </label>
+              <div class="detail-div">
+              <h4>Category : {{ complaint.category }}</h4>
+              <p>Title : {{ complaint.title }}</p>
+              {% if complaint.status == 'pending' %}
+              <p id="pending">Status : {{ complaint.status }}</p>
+              {% elif complaint.status == 'in_progress' %}
+              <p id="inprogress">Status : {{ complaint.status }}</p>
+              {% else %}
+              <p id="resolved">Status : {{ complaint.status }}</p>
+              {% endif %}
+              </div>
+              <p id="card-viewdetail-text">View Details&nbsp;<i class="fa fa-arrow-right"></i></p>
+            </div>
+          </div>
+          </a> 
+        <a href="/complaintdetails/{{complaint.id}}">
+          <div class="card">
+            <div class="card-image">
+              <img src="{{complaint.image.url}}" alt="" />
+            </div>
+            <div class="card-details">
+              <label id="supportbtn-bg">
+              <input type="checkbox" id="supportbtn">
+              </label>
+              <div class="detail-div">
+              <h4>Category : {{ complaint.category }}</h4>
+              <p>Title : {{ complaint.title }}</p>
+              {% if complaint.status == 'pending' %}
+              <p id="pending">Status : {{ complaint.status }}</p>
+              {% elif complaint.status == 'in_progress' %}
+              <p id="inprogress">Status : {{ complaint.status }}</p>
+              {% else %}
+              <p id="resolved">Status : {{ complaint.status }}</p>
+              {% endif %}
+              </div>
+              <p id="card-viewdetail-text">View Details&nbsp;<i class="fa fa-arrow-right"></i></p>
+            </div>
+          </div>
+          </a> 
+        {% endfor %}
+    </div>
+    </div>
+  </div>
+  
+
+{% endblock content %}

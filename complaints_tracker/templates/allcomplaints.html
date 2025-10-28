@@ -1,0 +1,42 @@
+{% extends 'layout/main.html' %} {% block title %} All Complaints
+{%endblock title %} {% block content %}
+
+<div class="all-complaints-div">
+  <div class="page-title-group">
+    <h2>All Complaints</h2>
+    </div>
+    <hr>
+    <div class="cards-grid">
+       {% for complaint in complaints %}
+        <a href="/complaintdetails/{{complaint.id}}">
+          <div class="card">
+            <div class="card-image">
+              <img src="{{ complaint.image.url }}" alt="" />
+            </div>
+            <div class="card-details">
+              <label id="supportbtn-bg">
+              <input type="checkbox" name="supportbtn" id="supportbtn" value="">
+              </label>
+              <div class="detail-div">
+                <h4>Category : {{ complaint.category }}</h4>
+                <p>Title : {{ complaint.title }}</p>
+                {% if complaint.status == 'pending' %}
+                <p id="pending">Status : {{ complaint.status }}</p>
+                {% elif complaint.status == 'in_progress' %}
+                <p id="inprogress">Status : {{ complaint.status }}</p>
+                {% else %}
+              <p id="resolved">Status : {{ complaint.status }}</p>
+              {% endif %}
+            </div>
+              <p id="card-viewdetail-text">View Details&nbsp;<i class="fa fa-arrow-right"></i></p>
+            </div>
+            
+          </div>
+          </a>
+        {% endfor %}
+    </div>
+
+</div>
+ 
+
+{% endblock content %}
