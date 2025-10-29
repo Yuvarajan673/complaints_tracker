@@ -39,8 +39,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'complaints_tracker'
+    'complaints_tracker',
+    'cloudinary',
+    'cloudinary_storage'
 ]
+
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dpj2ehi9q',
+    'API_KEY': '957534125333518',
+    'API_SECRET': 'xuZDHI4LzEghHEhE_LAziKF8GQk',
+}
+
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -111,8 +123,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/

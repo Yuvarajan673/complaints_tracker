@@ -1,4 +1,3 @@
-import re
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
