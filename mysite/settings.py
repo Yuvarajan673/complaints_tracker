@@ -11,8 +11,13 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 import os
+import dotenv
+import cloudinary
 from pathlib import Path
 import dj_database_url
+
+
+dotenv.load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -46,11 +51,28 @@ INSTALLED_APPS = [
 
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dpj2ehi9q',
-    'API_KEY': '957534125333518',
-    'API_SECRET': 'xuZDHI4LzEghHEhE_LAziKF8GQk',
+    'CLOUD_NAME': os.getenv('CLOUD_NAME'),
+    'API_KEY': os.getenv('API_KEY'),
+    'API_SECRET': os.getenv('API_SECRET'),
 }
 
+
+cloudinary.config( 
+    cloud_name = CLOUDINARY_STORAGE['CLOUD_NAME'], 
+    api_key = CLOUDINARY_STORAGE['API_KEY'], 
+    api_secret = CLOUDINARY_STORAGE['API_SECRET'],
+    secure = True
+)
+
+
+STORAGES = {
+    "default":{
+        "BACKEND":"cloudinary_storage.storage.MediaCloudinaryStorage"
+    },
+    "staticfiles":{
+        "BACKEND":"django.contrib.staticfiles.storage.StaticFilesStorage"
+    }
+}
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
@@ -89,7 +111,10 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get("DATABASE_URL"))
+    'default': {
+        'ENGINE':'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3'
+    }
 }
 
 
@@ -129,6 +154,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
